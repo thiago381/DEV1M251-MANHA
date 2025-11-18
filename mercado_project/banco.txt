@@ -1,0 +1,40 @@
+CREATE DATABASE mercado_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+USE mercado_db;
+
+CREATE TABLE produtos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    preco DECIMAL(10,2) NOT NULL
+);
+
+CREATE TABLE vendas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    total DECIMAL(10,2) NOT NULL,
+    forma_pagamento VARCHAR(10) NOT NULL,
+    data_venda TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE itens_venda (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    venda_id INT NOT NULL,
+    produto_id INT NOT NULL,
+    quantidade INT NOT NULL,
+    preco_unitario DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (venda_id) REFERENCES vendas(id),
+    FOREIGN KEY (produto_id) REFERENCES produtos(id)
+);
+
+
+USE mercado_db;
+
+INSERT INTO produtos (nome, preco) VALUES
+('Picolé de Uva', 1.00),
+('Picolé de Laranja', 1.25),
+('Picolé de Milho', 1.50),
+('Picolé de Coco Queimado', 1.80),
+('Picolé de Tamarindo', 2.00),
+('Arroz (1kg)', 5.00),
+('Feijão (1kg)', 7.50),
+('Leite (1L)', 4.00),
+('Café (500g)', 6.00);
